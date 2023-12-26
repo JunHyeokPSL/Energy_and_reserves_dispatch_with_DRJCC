@@ -148,10 +148,13 @@ WindDATA(:,3) = [1,2,11,12,12,16];
 
 % Fill system info structure
 system_info = [];
-
+system_info.B_NN = B_NN;
+system_info.B_LL = B_LL;
+system_info.PTDF_nrf = PTDF_nrf;
 system_info.PTDF = round([PTDF_nrf(:,1:ref_node-1), zeros(size(PTDF_nrf,1),1), PTDF_nrf(:,ref_node:size(PTDF_nrf,2))],2); % The final PTDF matrix
 system_info.F = ElNetwork(:,4)/Scale_Factor;
 system_info.D = Total_Demand * DemandDATA(:,1)/Scale_Factor;
+
 system_info.Pmax = GenDATA(:,2)/Scale_Factor;
 system_info.Pmin = GenDATA(:,1)/Scale_Factor;
 system_info.R = (system_info.Pmax + system_info.Pmin)/2;
@@ -163,7 +166,7 @@ system_info.Wmax = WindDATA(:,2)/Scale_Factor;
 system_info.DiagWmax = diag(system_info.Wmax);
 system_info.Wmin = WindDATA(:,1)/Scale_Factor;
 
-%system_info.C = 0.5*round(GenDATA(:,6)*Scale_Factor,3);
+%system_info.C = 0.5*round(GenDATA(:,6)*Scalector,3);
 system_info.Clsh = DemandDATA(:,3)*Scale_Factor;
 system_info.C = [35;40;30;55;60;45;50;10;15;65;20;25]/2;
 % system_info.Cr = [60;70;50;100;110;80;90;10;20;120;30;40];

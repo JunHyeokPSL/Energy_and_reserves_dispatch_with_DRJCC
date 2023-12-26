@@ -162,48 +162,48 @@ for j = 1:IR_sim
         
         % optimize for each value of rho for Zymler approximation
         
-        DRO_param.rho = rho_vectorJC(i);
-        
-        DRO_JCC_CVaR = DRO_JCVaR_All(system_info, DRO_param, jcc);
-        JCC_p_DA{j, i} = DRO_JCC_CVaR.p;
-        JCC_ru{j, i} = DRO_JCC_CVaR.ru;
-        JCC_rd{j, i} = DRO_JCC_CVaR.rd;
-        JCC_obj{j, i} = DRO_JCC_CVaR.Obj;
-        JCC_flag{j, i} = DRO_JCC_CVaR.Flag;            
-        Joint_CVaR_Y{j,i} = DRO_JCC_CVaR.Y * system_info.xi;
-        Joint_CVaR_Qy{j,i} = DRO_JCC_CVaR.q;
-        Joint_CVaR_QY{j,i} = DRO_JCC_CVaR.qY * system_info.xi;
-        Joint_CVaR_Fy{j,i} = DRO_JCC_CVaR.fy;
-        Joint_CVaR_FY{j,i} = DRO_JCC_CVaR.fY * system_info.xi;
-            
-        % Loop for each out-of-sample realization 
-        for k = 1:OOS_sim
-            system_info.Wreal = WPr(k,:)';
-            system_info.DWreal = system_info.Wreal - system_info.mu;
-
-            % Solve real-time optimal power flow for the solution of Bonferroni
-            % approximation
-            RT_solution_CVaR = RT_solve_R(system_info,DRO_ICC_CVaR.p,DRO_ICC_CVaR.ru,DRO_ICC_CVaR.rd);
-            CVaR_Obj_IR(j,k,i) = RT_solution_CVaR.Obj_RT;  
-            CVaR_lshed{j,k,i} = RT_solution_CVaR.lshed_RT;
-            CVaR_flow{j,k,i} = DRO_ICC_CVaR.fy + DRO_ICC_CVaR.fY * system_info.DWreal;
-            CVaR_p{j,k,i} = DRO_ICC_CVaR.Y * system_info.DWreal;
-            CVaR_q{j,k,i} = DRO_ICC_CVaR.q + DRO_ICC_CVaR.qY * system_info.DWreal;
-            CVaR_flag(j,k,i) = RT_solution_CVaR.Flag;
-
-            
-            % Solve real-time optimal power flow for the solution of Zymler
-            % approximation
-            RT_solution_Joint_CVaR = RT_solve_R(system_info,DRO_JCC_CVaR.p,DRO_JCC_CVaR.ru,DRO_JCC_CVaR.rd);
-            Joint_CVaR_Obj_IR(j,k,i) = RT_solution_Joint_CVaR.Obj_RT;  
-            Joint_CVaR_lshed{j,k,i} = RT_solution_Joint_CVaR.lshed_RT;
-            Joint_CVaR_flow{j,k,i} = DRO_JCC_CVaR.fy + DRO_JCC_CVaR.fY * system_info.DWreal;
-            Joint_CVaR_p{j,k,i} = DRO_JCC_CVaR.Y * system_info.DWreal;     
-            Joint_CVaR_q{j,k,i} = DRO_JCC_CVaR.q + DRO_JCC_CVaR.qY * system_info.DWreal;
-            Joint_CVaR_flag(j,k,i) = RT_solution_Joint_CVaR.Flag;
-
-            
-        end
+%         DRO_param.rho = rho_vectorJC(i);
+%         
+%         DRO_JCC_CVaR = DRO_JCVaR_All(system_info, DRO_param, jcc);
+%         JCC_p_DA{j, i} = DRO_JCC_CVaR.p;
+%         JCC_ru{j, i} = DRO_JCC_CVaR.ru;
+%         JCC_rd{j, i} = DRO_JCC_CVaR.rd;
+%         JCC_obj{j, i} = DRO_JCC_CVaR.Obj;
+%         JCC_flag{j, i} = DRO_JCC_CVaR.Flag;            
+%         Joint_CVaR_Y{j,i} = DRO_JCC_CVaR.Y * system_info.xi;
+%         Joint_CVaR_Qy{j,i} = DRO_JCC_CVaR.q;
+%         Joint_CVaR_QY{j,i} = DRO_JCC_CVaR.qY * system_info.xi;
+%         Joint_CVaR_Fy{j,i} = DRO_JCC_CVaR.fy;
+%         Joint_CVaR_FY{j,i} = DRO_JCC_CVaR.fY * system_info.xi;
+%             
+%         % Loop for each out-of-sample realization 
+%         for k = 1:OOS_sim
+%             system_info.Wreal = WPr(k,:)';
+%             system_info.DWreal = system_info.Wreal - system_info.mu;
+% 
+%             % Solve real-time optimal power flow for the solution of Bonferroni
+%             % approximation
+%             RT_solution_CVaR = RT_solve_R(system_info,DRO_ICC_CVaR.p,DRO_ICC_CVaR.ru,DRO_ICC_CVaR.rd);
+%             CVaR_Obj_IR(j,k,i) = RT_solution_CVaR.Obj_RT;  
+%             CVaR_lshed{j,k,i} = RT_solution_CVaR.lshed_RT;
+%             CVaR_flow{j,k,i} = DRO_ICC_CVaR.fy + DRO_ICC_CVaR.fY * system_info.DWreal;
+%             CVaR_p{j,k,i} = DRO_ICC_CVaR.Y * system_info.DWreal;
+%             CVaR_q{j,k,i} = DRO_ICC_CVaR.q + DRO_ICC_CVaR.qY * system_info.DWreal;
+%             CVaR_flag(j,k,i) = RT_solution_CVaR.Flag;
+% 
+%             
+%             % Solve real-time optimal power flow for the solution of Zymler
+%             % approximation
+%             RT_solution_Joint_CVaR = RT_solve_R(system_info,DRO_JCC_CVaR.p,DRO_JCC_CVaR.ru,DRO_JCC_CVaR.rd);
+%             Joint_CVaR_Obj_IR(j,k,i) = RT_solution_Joint_CVaR.Obj_RT;  
+%             Joint_CVaR_lshed{j,k,i} = RT_solution_Joint_CVaR.lshed_RT;
+%             Joint_CVaR_flow{j,k,i} = DRO_JCC_CVaR.fy + DRO_JCC_CVaR.fY * system_info.DWreal;
+%             Joint_CVaR_p{j,k,i} = DRO_JCC_CVaR.Y * system_info.DWreal;     
+%             Joint_CVaR_q{j,k,i} = DRO_JCC_CVaR.q + DRO_JCC_CVaR.qY * system_info.DWreal;
+%             Joint_CVaR_flag(j,k,i) = RT_solution_Joint_CVaR.Flag;
+% 
+%             
+%         end
         
         % Calculation of expected cost
         
@@ -213,11 +213,11 @@ for j = 1:IR_sim
             ICC_TC(j,i) = NaN;
         end
         
-        if DRO_JCC_CVaR.Flag == 0
-            JCC_TC(j,i) = system_info.Cr1'*DRO_JCC_CVaR.ru + system_info.Cr2'*DRO_JCC_CVaR.rd + mean(Joint_CVaR_Obj_IR(j,:,i));
-        else
-            JCC_TC(j,i) = NaN;
-        end
+%         if DRO_JCC_CVaR.Flag == 0
+%             JCC_TC(j,i) = system_info.Cr1'*DRO_JCC_CVaR.ru + system_info.Cr2'*DRO_JCC_CVaR.rd + mean(Joint_CVaR_Obj_IR(j,:,i));
+%         else
+%             JCC_TC(j,i) = NaN;
+%         end
 
     end
 end
